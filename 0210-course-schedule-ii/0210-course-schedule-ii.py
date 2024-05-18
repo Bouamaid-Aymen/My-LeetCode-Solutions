@@ -10,16 +10,13 @@ class Solution(object):
         graph = defaultdict(list)
         indegree = [0] * numCourses
         
-        # Build the graph and calculate the indegree of each course
         for course, pre in prerequisites:
             graph[pre].append(course)
             indegree[course] += 1
         
-        # Initialize a queue with courses having no prerequisites
         queue = deque([course for course in range(numCourses) if indegree[course] == 0])
         order = []
         
-        # Perform topological sorting
         while queue:
             pre = queue.popleft()
             order.append(pre)
@@ -28,5 +25,4 @@ class Solution(object):
                 if indegree[course] == 0:
                     queue.append(course)
         
-        # Check if all courses can be taken
         return order if len(order) == numCourses else []
